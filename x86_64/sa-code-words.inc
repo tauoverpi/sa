@@ -2,14 +2,14 @@
 ;;; copyright: (c) Simon Nielsen Knights <tauoverpi@yandex.com>
 ;;; license  : GPLv3
 ;;; synopsis : 64bit Forth system written in FASM
-; vim: ft=fasm
+; vim: ft=fasm et
 code   kernel.link.core,      "SYSCALL5",   syscall5,     8 ; (n5 n4 n3 n2 n1 sys -- x)
 code   kernel.link.core,      "SYSCALL4",   syscall4,     8 ; (n4 n3 n2 n1 sys -- x)
 code   kernel.link.core,      "SYSCALL3",   syscall3,     8 ; (n3 n2 n1 sys -- x)
 code   kernel.link.core,      "SYSCALL2",   syscall2,     8 ; (n2 n1 sys -- x)
 code   kernel.link.core,      "SYSCALL1",   syscall1,     8 ; (n1 sys -- x)
 code   kernel.link.core,      "SYSCALL0",   syscall0,     8 ; (sys -- x)
-code   kernel.link.core,      "LIT",        lit,          3 ; ( -- n)
+code   kernel.link.core,      "LITERAL",    literal,      7 ; ( -- n)
 code   kernel.link.core,      "DROP",       drop,         4 ; (x -- )
 code   kernel.link.core,      "SWAP",       swap,         4 ; (x y -- y     x)
 code   kernel.link.core,      "DUP",        dup_,         3 ; (x -- x x)
@@ -66,11 +66,21 @@ code   kernel.link.core,      "STATE",      state,        5 ;
 code   kernel.link.core,      "S0",         s0,           2 ;
 code   kernel.link.core,      "LATEST",     latest,       6 ;
 if wordlist.coreext eq true
-	code   kernel.link.coreext,   "PICK",       pick,         4 ; (n -- x)
-	code   kernel.link.coreext,   "HEX",        hex,          3 ;
-	code   kernel.link.coreext,   "<>",         neq,          2 ;
-	code   kernel.link.coreext,   "0<>",        zneq,         3 ;
-	code   kernel.link.coreext,   "0<=",        zle,          3 ;
-	code   kernel.link.coreext,   "0>=",        zge,          3 ;
-	code   kernel.link.coreext,   "0>",         zgt,          2 ;
+  code   kernel.link.coreext,   "PICK",       pick,         4 ; (n -- x)
+  code   kernel.link.coreext,   "HEX",        hex,          3 ;
+  code   kernel.link.coreext,   "<>",         neq,          2 ;
+  code   kernel.link.coreext,   "0<>",        zneq,         3 ;
+  code   kernel.link.coreext,   "0<=",        zle,          3 ;
+  code   kernel.link.coreext,   "0>=",        zge,          3 ;
+  code   kernel.link.coreext,   "0>",         zgt,          2 ;
+end if
+if wordlist.double eq true
+  code   kernel.link.double,   "2LITERAL",   twoliteral,   8 ;
+  code   kernel.link.double,   "DPLUS",      dplus,        5
+end if
+if wordlist.except eq true
+  code   kernel.link.except,    "CATCH",      catch,        5 ;
+  code   kernel.link.except,    "THROW",      throw,        5 ;
+  code   kernel.link.except,    "ABORT",      abort,        5 ;
+  code   kernel.link.except,    'ABORT"',     abort_str,    6 ;
 end if

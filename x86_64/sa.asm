@@ -2,7 +2,7 @@
 ;;; copyright: (c) Simon Nielsen Knights <tauoverpi@yandex.com>
 ;;; license  : GPLv3
 ;;; synopsis : 64bit Forth system written in FASM
-; vim: ft=fasm
+; vim: ft=fasm et
 
 include "sa-macro.inc"
 
@@ -64,67 +64,67 @@ segment readable executable
 entry main
 
 main:
-	cld
-	mov [variable.s0], rsp
-	mov kernel.rsp, kernel.rstack
+  cld
+  mov [variable.s0], rsp
+  mov kernel.rsp, kernel.rstack
 
-	xor rbx, rbx
-	mov rax, sys.brk
-	syscall
-	mov [variable.here], rax
-	add rax, kernel.data_segment_size
-	mov rbx, rax
-	mov rax, sys.brk
-	syscall
+  xor rbx, rbx
+  mov rax, sys.brk
+  syscall
+  mov [variable.here], rax
+  add rax, kernel.data_segment_size
+  mov rbx, rax
+  mov rax, sys.brk
+  syscall
 
-	mov kernel.ip, kernel.entry
-	next
+  mov kernel.ip, kernel.entry
+  next
 
 docol:
-	pushrsp kernel.ip
-	add rax, 8
-	mov kernel.ip, rax
-	next
+  pushrsp kernel.ip
+  add rax, 8
+  mov kernel.ip, rax
+  next
 
 include "sa-core.inc"
 if wordlist.coreext eq true
-	include "sa-coreext.inc"
+  include "sa-coreext.inc"
 end if
 if wordlist.block eq true
-	;include "sa-block.inc"
+  ;include "sa-block.inc"
 end if
 if wordlist.double eq true
-	;include "sa-double.inc"
+  ;include "sa-double.inc"
 end if
 if wordlist.except eq true
-	;include "sa-except.inc"
+  include "sa-except.inc"
 end if
 if wordlist.facility eq true
-	;include "sa-facility.inc"
+  ;include "sa-facility.inc"
 end if
 if wordlist.files eq true
-	;include "sa-files.inc"
+  ;include "sa-files.inc"
 end if
 if wordlist.floating eq true
-	;include "sa-floating.inc"
+  ;include "sa-floating.inc"
 end if
 if wordlist.memory eq true
-	;include "sa-memory.inc"
+  ;include "sa-memory.inc"
 end if
 if wordlist.tools eq true
-	;include "sa-tools.inc"
+  ;include "sa-tools.inc"
 end if
 if wordlist.search eq true
-	;include "sa-search.inc"
+  ;include "sa-search.inc"
 end if
 if wordlist.string eq true
-	;include "sa-string.inc"
+  ;include "sa-string.inc"
 end if
 if wordlist.xchar eq true
-	;include "sa-xchar.inc"
+  ;include "sa-xchar.inc"
 end if
 if wordlist.task eq true
-	;include "sa-task.inc"
+  ;include "sa-task.inc"
 end if
 
 segment readable

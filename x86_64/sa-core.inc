@@ -2,171 +2,171 @@
 ;;; copyright: (c) Simon Nielsen Knights <tauoverpi@yandex.com>
 ;;; license  : GPLv3
 ;;; synopsis : 64bit Forth system written in FASM
-; vim: ft=fasm
+; vim: ft=fasm et
 exit:
-	poprsp kernel.ip
-	next
+  poprsp kernel.ip
+  next
 
 prim__syscall5:
-	pop rax
-	pop rdi
-	pop rsi
-	pop rdx
-	pop r8
-	pop r9
-	syscall
-	push rax
-	next
+  pop rax
+  pop rdi
+  pop rsi
+  pop rdx
+  pop r8
+  pop r9
+  syscall
+  push rax
+  next
 
 prim__syscall4:
-	pop rax
-	pop rdi
-	pop rsi
-	pop rdx
-	pop r8
-	syscall
-	push rax
-	next
+  pop rax
+  pop rdi
+  pop rsi
+  pop rdx
+  pop r8
+  syscall
+  push rax
+  next
 
 prim__syscall3:
-	pop rax
-	pop rdi
-	pop rsi
-	pop rdx
-	syscall
-	push rax
-	next
+  pop rax
+  pop rdi
+  pop rsi
+  pop rdx
+  syscall
+  push rax
+  next
 
 prim__syscall2:
-	pop rax
-	pop rdi
-	pop rsi
-	syscall
-	push rax
-	next
+  pop rax
+  pop rdi
+  pop rsi
+  syscall
+  push rax
+  next
 
 prim__syscall1:
-	pop rax
-	pop rdi
-	syscall
-	push rax
-	next
+  pop rax
+  pop rdi
+  syscall
+  push rax
+  next
 
 prim__syscall0:
-	pop rax
-	syscall
-	push rax
-	next
+  pop rax
+  syscall
+  push rax
+  next
 
-prim__lit:
-	mov rax, [kernel.ip]
-	add kernel.ip, 8
-	push rax
-	next
+prim__literal:
+  mov rax, [kernel.ip]
+  add kernel.ip, 8
+  push rax
+  next
 
 prim__drop:
-	pop rax
-	next
+  pop rax
+  next
 
 prim__swap:
-	pop rax
-	pop rbx
-	push rax
-	push rbx
-	next
+  pop rax
+  pop rbx
+  push rax
+  push rbx
+  next
 
 prim__dup_:
-	mov rax, [kernel.sp]
-	push rax
-	next
+  mov rax, [kernel.sp]
+  push rax
+  next
 
 prim__qdup:
-	mov rax, [kernel.sp]
-	test rax, rax
-	jz @f
-	push rax
+  mov rax, [kernel.sp]
+  test rax, rax
+  jz @f
+  push rax
 @@:
-	next
+  next
 
 prim__twodup:
-	push qword [kernel.sp - 8]
-	push qword [kernel.sp - 8]
-	next
+  push qword [kernel.sp - 8]
+  push qword [kernel.sp - 8]
+  next
 
 prim__rot:
-	pop rax
-	pop rbx
-	pop rcx
-	push rcx
-	push rax
-	push rbx
-	next
+  pop rax
+  pop rbx
+  pop rcx
+  push rcx
+  push rax
+  push rbx
+  next
 
 prim__nrot:
-	pop rax
-	pop rbx
-	pop rcx
-	push rbx
-	push rcx
-	push rax
-	next
+  pop rax
+  pop rbx
+  pop rcx
+  push rbx
+  push rcx
+  push rax
+  next
 
 prim__over:
-	push qword [kernel.sp - 8]
-	next
+  push qword [kernel.sp - 8]
+  next
 
 prim__plus:
-	pop rax
-	add qword [kernel.sp], rax
-	next
+  pop rax
+  add qword [kernel.sp], rax
+  next
 
 prim__minus:
-	pop rax
-	sub qword [kernel.sp], rax
-	next
+  pop rax
+  sub qword [kernel.sp], rax
+  next
 
 prim__mult:
-	pop rax
-	pop rbx
-	imul rax, rbx
-	push rax
-	next
+  pop rax
+  pop rbx
+  imul rax, rbx
+  push rax
+  next
 
 prim__divmod:
-	xor rdx, rdx
-	pop rbx
-	pop rax
-	idiv rbx
-	push rdx
-	push rax
-	next
+  xor rdx, rdx
+  pop rbx
+  pop rax
+  idiv rbx
+  push rdx
+  push rax
+  next
 
 prim__increment:
-	inc qword [kernel.sp]
-	next
+  inc qword [kernel.sp]
+  next
 
 prim__decrement:
-	dec qword [kernel.sp]
-	next
+  dec qword [kernel.sp]
+  next
 
 prim__and_:
-	pop rax
-	and qword [kernel.sp], rax
-	next
+  pop rax
+  and qword [kernel.sp], rax
+  next
 
 prim__or_:
-	pop rax
-	or qword [kernel.sp], rax
-	next
+  pop rax
+  or qword [kernel.sp], rax
+  next
 
 prim__xor_:
-	pop rax
-	xor qword [kernel.sp], rax
-	next
+  pop rax
+  xor qword [kernel.sp], rax
+  next
 
 prim__not_:
-	not qword [kernel.sp]
-	next
+  not qword [kernel.sp]
+  next
 
 prim__rshift:
   pop rcx
@@ -189,89 +189,89 @@ prim__rol_:
   next
 
 prim__store_:
-	pop rbx
-	pop rax
-	mov [rbx], rax
-	next
+  pop rbx
+  pop rax
+  mov [rbx], rax
+  next
 
 prim__cstore:
-	pop rbx
-	pop rax
-	mov [rbx], al
-	next
+  pop rbx
+  pop rax
+  mov [rbx], al
+  next
 
 prim__twostore:
-	pop rbx
-	pop rax
-	pop rdx
-	mov [rbx], rax
-	mov [rbx + 8], rdx
-	next
+  pop rbx
+  pop rax
+  pop rdx
+  mov [rbx], rax
+  mov [rbx + 8], rdx
+  next
 
 prim__plusstore:
-	pop rbx
-	pop rax
-	add [rbx], rax
-	next
+  pop rbx
+  pop rax
+  add [rbx], rax
+  next
 
 prim__minusstore:
-	pop rbx
-	pop rax
-	sub [rbx], rax
-	next
+  pop rbx
+  pop rax
+  sub [rbx], rax
+  next
 
 prim__fetch:
-	pop rax
-	push qword [rax]
-	next
+  pop rax
+  push qword [rax]
+  next
 
 prim__cfetch:
-	xor rax, rax
-	pop rbx
-	mov al, [rbx]
-	push rax
-	next
+  xor rax, rax
+  pop rbx
+  mov al, [rbx]
+  push rax
+  next
 
 prim__twofetch:
-	pop rax
-	push qword [rax]
-	push qword [rax + 8]
-	next
+  pop rax
+  push qword [rax]
+  push qword [rax + 8]
+  next
 
 prim__branch:
-	add kernel.ip, [kernel.ip]
-	next
+  add kernel.ip, [kernel.ip]
+  next
 
 prim__qbranch:
-	pop rax
-	test rax, rax
-	jnz prim__branch
-	add kernel.ip, 8
-	next
+  pop rax
+  test rax, rax
+  jnz prim__branch
+  add kernel.ip, 8
+  next
 
 prim__r2d:
-	poprsp rax
-	push rax
-	next
+  poprsp rax
+  push rax
+  next
 
 prim__d2r:
-	pop rax
-	pushrsp rax
-	next
+  pop rax
+  pushrsp rax
+  next
 
 prim__comma:
-	pop rax
-	mov rdi, variable.here
-	stosq
-	mov [variable.here], rdi
-	next
+  pop rax
+  mov rdi, variable.here
+  stosq
+  mov [variable.here], rdi
+  next
 
 prim__ccomma:
-	pop rax
-	mov rdi, variable.here
-	stosb
-	mov [variable.here], rdi
-	next
+  pop rax
+  mov rdi, variable.here
+  stosb
+  mov [variable.here], rdi
+  next
 
 prim__key:
   call __key
@@ -369,14 +369,8 @@ prim__number:
   push rcx
   next
 __number:
-  xor rax, rax
-  xor rbx, rbx
-  test rcx, rcx
-  jz .return
-.return:
-  ret
 
-diadicPred eq_, sete
+ddiadicPred eq_, sete
 diadicPred le, setle
 diadicPred lt, setl
 diadicPred ge, setge

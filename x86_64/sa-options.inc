@@ -2,7 +2,7 @@
 ;;; copyright: (c) Simon Nielsen Knights <tauoverpi@yandex.com>
 ;;; license  : GPLv3
 ;;; synopsis : 64bit Forth system written in FASM
-; vim: ft=fasm
+; vim: ft=fasm et
 kernel.data_segment_size = 0xffff
 kernel.tib.size = 4096
 kernel.tob.size = 4096

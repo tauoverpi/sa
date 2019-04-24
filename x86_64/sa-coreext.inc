@@ -2,13 +2,13 @@
 ;;; copyright: (c) Simon Nielsen Knights <tauoverpi@yandex.com>
 ;;; license  : GPLv3
 ;;; synopsis : 64bit Forth system written in FASM
-; vim: ft=fasm
+; vim: ft=fasm et
 prim__pick:
-	pop rax
-	imul rax, 8
-	add rax, kernel.sp
-	push qword [rax]
-	next
+  pop rax
+  imul rax, 8
+  add rax, kernel.sp
+  push qword [rax]
+  next
 
 prim__hex:
   mov byte [variable.base], 16

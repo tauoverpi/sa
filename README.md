@@ -21,8 +21,8 @@ TBD
 - [ ] sa-task.inc
 
 ### Wordlists
-- [ ] documentation.f (documentation for all words)
-- [ ] markdown.f (markdown code block syntax)
+- [ ] documentation.fs (documentation for all words)
+- [ ] markdown.fs (markdown code block syntax)
 
 ### Documentation
 - [ ] types (type system?)
